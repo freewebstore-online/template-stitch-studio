@@ -1122,7 +1122,11 @@
                 Tell us the garment and what needs doing, and we will come back with a price.
               </p>
 
-              <form class="mt-7 space-y-5" method="post" action="#">
+              <!-- `fws-contact-form` is what wires this to the platform enquiry
+                   endpoint, and the field names must be name/email/phone/message.
+                   Without the class the form silently posts nowhere. The honeypot
+                   and Turnstile widget are injected at deploy time. -->
+              <form class="fws-contact-form mt-7 space-y-5">
                 <div>
                   <label
                     for="name"
@@ -1133,6 +1137,7 @@
                     id="name"
                     name="name"
                     type="text"
+                    required
                     autocomplete="name"
                     class="mt-2 w-full rounded-xl border border-white/15 bg-stone-950/40 px-4 py-3 text-white placeholder-stone-500 focus:border-amber-300 focus:outline-none"
                     placeholder="Jane Smith"
@@ -1140,29 +1145,46 @@
                 </div>
                 <div>
                   <label
-                    for="reach"
+                    for="email"
                     class="block text-xs font-semibold uppercase tracking-wide text-stone-400"
-                    >Phone or email</label
+                    >Email</label
                   >
                   <input
-                    id="reach"
-                    name="reach"
-                    type="text"
-                    autocomplete="tel"
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    autocomplete="email"
                     class="mt-2 w-full rounded-xl border border-white/15 bg-stone-950/40 px-4 py-3 text-white placeholder-stone-500 focus:border-amber-300 focus:outline-none"
-                    placeholder="How should we reach you?"
+                    placeholder="you@example.com"
                   />
                 </div>
                 <div>
                   <label
-                    for="job"
+                    for="phone"
+                    class="block text-xs font-semibold uppercase tracking-wide text-stone-400"
+                    >Phone (optional)</label
+                  >
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    class="mt-2 w-full rounded-xl border border-white/15 bg-stone-950/40 px-4 py-3 text-white placeholder-stone-500 focus:border-amber-300 focus:outline-none"
+                    placeholder="Best number to reach you"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="message"
                     class="block text-xs font-semibold uppercase tracking-wide text-stone-400"
                     >What needs doing</label
                   >
                   <textarea
-                    id="job"
-                    name="job"
+                    id="message"
+                    name="message"
                     rows="4"
+                    required
                     class="mt-2 w-full rounded-xl border border-white/15 bg-stone-950/40 px-4 py-3 text-white placeholder-stone-500 focus:border-amber-300 focus:outline-none"
                     placeholder="e.g. Suit jacket sleeves shortened, needed by the 20th"
                   ></textarea>
@@ -1173,6 +1195,7 @@
                 >
                   Send enquiry
                 </button>
+                <p class="fws-form-status"></p>
                 <p class="text-xs leading-5 text-stone-400">
                   Prefer to talk? Call the shop — someone is at the counter all opening
                   hours.
